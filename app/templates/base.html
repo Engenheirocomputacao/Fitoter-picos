@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gerenciamento de fitoterápicos - Aplicação desenvolvida pelos alunos da UNIVESP PJI 310.">
+  <title>{% block title %}{% endblock %}</title>
+  
+  <style>
+    body {
+        font-family: 'Open Sans', sans-serif;
+        background-color: #f7f7f7;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        background-color: #0096c7;
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+    }
+
+    nav {
+        background-color: #0096c7;
+        color: #fff;
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    nav ul li {
+        margin: 0 10px;
+    }
+
+    nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 16px;
+        padding: 15px;
+        transition: all 0.3s ease;
+    }
+
+    nav ul li a:hover {
+        background-color: #32bbe8;
+    }
+
+    nav ul li.active a {
+        background-color: #666;
+    }
+
+    nav ul li.active a:hover {
+        background-color: #999;
+    }
+
+    footer {
+        background-color: #ccc;
+        color: #333;
+        padding: 20px;
+        text-align: center;
+    }
+
+    /* Modo Alto Contraste */
+    .high-contrast {
+        background-color: #000 !important;
+        color: #ff0 !important;
+    }
+    .high-contrast a {
+        color: #ff0 !important;
+    }
+    .high-contrast nav {
+        background-color: #000 !important;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Bem-vindo ao Herbárium Digital</h1>
+    <button onclick="toggleContrast()">Ativar Alto Contraste</button>
+  </header>
+  
+  <nav role="navigation" aria-label="Menu principal">
+    <ul>
+      {% if user.is_authenticated %}
+        <li>Olá, {{ user.username }}</li>
+        <li><a href="{% url 'novo_fitoterapico' %}">Cadastrar Fitoterápicos</a></li>
+      {% else %}
+        <li><a href="{% url 'registro' %}">Cadastre-se</a></li>
+        <li><a href="{% url 'login' %}">Login</a></li>
+      {% endif %}
+      <li><a href="{% url 'fitoterapico_list' %}">Fitoterápicos</a></li>
+      {% if user.is_authenticated %}
+        <li><a href="{% url 'logout' %}">Sair</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+  
+  <footer>
+    <p>&copy; 2025 Alunos UNIVESP PJI 310</p>
+  </footer>
+
+  <!-- VLibras - Widget de Acessibilidade para Tradução em Libras -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div vw-plugin-top></div>
+    </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
+
+  <!-- Leitor de Tela e Alto Contraste -->
+  <script>
+    function toggleContrast() {
+        document.body.classList.toggle('high-contrast');
+    }
+
+    window.addEventListener('load', function () {
+        if ('speechSynthesis' in window) {
+            const msg = new SpeechSynthesisUtterance("Bem-vindo ao Sistema Herbárium Digital. Use o botão de alto contraste se necessário.");
+            window.speechSynthesis.speak(msg);
+        }
+    });
+  </script>
+</body>
+</html>
