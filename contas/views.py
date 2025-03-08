@@ -20,6 +20,8 @@ def login_view(request):
         if user is not None:
             login(request, user)
             return redirect('fitoterapico_list')
+        else:
+            login_form = AuthenticationForm(data=request.POST)
     else:
         login_form = AuthenticationForm()
     return render(request, 'login.html', {'login_form': login_form})

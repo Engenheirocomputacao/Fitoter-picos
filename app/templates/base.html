@@ -6,138 +6,384 @@
   <meta name="description" content="Gerenciamento de fitoterápicos - Aplicação desenvolvida pelos alunos da UNIVESP PJI 310.">
   <title>{% block title %}{% endblock %}</title>
   
+  <!-- Fonte do Google -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
   <style>
+    :root {
+      --primary-color: #2E7D32;
+      --primary-light: #60ad5e;
+      --primary-dark: #005005;
+      --secondary-color: #81C784;
+      --text-light: #ffffff;
+      --text-dark: #333333;
+      --background-light: #f8f9fa;
+      --background-card: #ffffff;
+      --border-radius: 8px;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-        font-family: 'Open Sans', sans-serif;
-        background-color: #f7f7f7;
-        color: #333;
-        margin: 0;
-        padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--background-light);
+      color: var(--text-dark);
+      line-height: 1.6;
     }
 
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    /* Header */
     header {
-        background-color: #0096c7;
-        color: #fff;
-        text-align: center;
-        padding: 10px;
+      background-color: var(--primary-color);
+      color: var(--text-light);
+      padding: 20px 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: relative;
     }
 
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo i {
+      font-size: 24px;
+      margin-right: 10px;
+    }
+
+    .logo h1 {
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .accessibility-controls {
+      display: flex;
+      align-items: center;
+    }
+
+    .contrast-btn {
+      background-color: var(--text-light);
+      color: var(--primary-color);
+      border: none;
+      padding: 8px 15px;
+      border-radius: var(--border-radius);
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      transition: var(--transition);
+    }
+
+    .contrast-btn:hover {
+      background-color: #f0f0f0;
+    }
+
+    .contrast-btn i {
+      margin-right: 8px;
+    }
+
+    /* Navigation */
     nav {
-        background-color: #0096c7;
-        color: #fff;
-        height: 50px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 20px;
+      background-color: var(--primary-dark);
+      padding: 0;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
     }
 
     nav ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
     }
 
     nav ul li {
-        margin: 0 10px;
+      position: relative;
     }
 
     nav ul li a {
-        color: #fff;
-        text-decoration: none;
-        font-size: 16px;
-        padding: 15px;
-        transition: all 0.3s ease;
+      color: var(--text-light);
+      text-decoration: none;
+      padding: 15px 20px;
+      display: block;
+      transition: var(--transition);
+      font-weight: 500;
     }
 
     nav ul li a:hover {
-        background-color: #32bbe8;
+      background-color: var(--primary-light);
     }
 
-    nav ul li.active a {
-        background-color: #666;
+    .user-info {
+      display: flex;
+      align-items: center;
+      color: var(--text-light);
+      padding: 0 15px;
     }
 
-    nav ul li.active a:hover {
-        background-color: #999;
+    .user-info i {
+      margin-right: 8px;
     }
 
+    /* Main Content */
+    main {
+      padding: 30px 0;
+      min-height: calc(100vh - 180px);
+    }
+
+    .card {
+      background-color: var(--background-card);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      color: var(--primary-dark);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--secondary-color);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: var(--primary-color);
+      color: var(--text-light);
+      text-decoration: none;
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .btn:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background-color: var(--secondary-color);
+      color: var(--text-dark);
+    }
+
+    .btn-secondary:hover {
+      background-color: #5CAB7D;
+    }
+
+    /* Footer */
     footer {
-        background-color: #ccc;
-        color: #333;
-        padding: 20px;
-        text-align: center;
+      background-color: var(--primary-dark);
+      color: var(--text-light);
+      padding: 25px 0;
+      text-align: center;
     }
 
-    /* Modo Alto Contraste */
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .footer-links {
+      margin-bottom: 15px;
+    }
+
+    .footer-links a {
+      color: var(--text-light);
+      margin: 0 10px;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary-color);
+    }
+
+    .social-icons {
+      margin-bottom: 15px;
+    }
+
+    .social-icons a {
+      color: var(--text-light);
+      margin: 0 10px;
+      font-size: 18px;
+      transition: var(--transition);
+    }
+
+    .social-icons a:hover {
+      color: var(--secondary-color);
+    }
+
+    /* VLibras Widget */
+    .vlibras-container {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 1000;
+    }
+
+    /* High Contrast Mode */
     .high-contrast {
-        background-color: #000 !important;
-        color: #ff0 !important;
+      --primary-color: #000000;
+      --primary-light: #333333;
+      --primary-dark: #000000;
+      --secondary-color: #ffff00;
+      --text-light: #ffff00;
+      --text-dark: #ffff00;
+      --background-light: #000000;
+      --background-card: #333333;
     }
-    .high-contrast a {
-        color: #ff0 !important;
-    }
-    .high-contrast nav {
-        background-color: #000 !important;
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-content, .nav-container {
+        flex-direction: column;
+      }
+      
+      .accessibility-controls {
+        margin-top: 15px;
+      }
+      
+      nav ul {
+        flex-direction: column;
+        width: 100%;
+      }
+      
+      nav ul li {
+        width: 100%;
+        text-align: center;
+      }
+      
+      .user-info {
+        margin: 10px 0;
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Bem-vindo ao Herbárium Digital</h1>
-    <button onclick="toggleContrast()">Ativar Alto Contraste</button>
+    <div class="header-content">
+      <div class="logo">
+        <i class="fas fa-leaf"></i>
+        <h1>Herbárium Digital</h1>
+      </div>
+      <div class="accessibility-controls">
+        <button class="contrast-btn" onclick="toggleContrast()">
+          <i class="fas fa-adjust"></i>
+          Alto Contraste
+        </button>
+      </div>
+    </div>
   </header>
   
   <nav role="navigation" aria-label="Menu principal">
-    <ul>
-      {% if user.is_authenticated %}
-        <li>Olá, {{ user.username }}</li>
-        <li><a href="{% url 'novo_fitoterapico' %}">Cadastrar Fitoterápicos</a></li>
-      {% else %}
-        <li><a href="{% url 'registro' %}">Cadastre-se</a></li>
-        <li><a href="{% url 'login' %}">Login</a></li>
-      {% endif %}
-      <li><a href="{% url 'fitoterapico_list' %}">Fitoterápicos</a></li>
-      {% if user.is_authenticated %}
-        <li><a href="{% url 'logout' %}">Sair</a></li>
-      {% endif %}
-    </ul>
+    <div class="nav-container">
+      <ul>
+        <li><a href="{% url 'home' %}"><i class="fas fa-home"></i> Início</a></li>
+        <li><a href="{% url 'fitoterapico_list' %}"><i class="fas fa-seedling"></i> Fitoterápicos</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'novo_fitoterapico' %}"><i class="fas fa-plus-circle"></i> Cadastrar</a></li>
+        {% endif %}
+      </ul>
+      
+      <div class="user-info">
+        {% if user.is_authenticated %}
+          <i class="fas fa-user-circle"></i>
+          <span>Olá, {{ user.username }}</span>
+          <a href="{% url 'logout' %}" class="btn btn-secondary" style="margin-left: 15px;">
+            <i class="fas fa-sign-out-alt"></i> Sair
+          </a>
+        {% else %}
+          <a href="{% url 'login' %}" class="btn">
+            <i class="fas fa-sign-in-alt"></i> Login
+          </a>
+          <a href="{% url 'registro' %}" class="btn btn-secondary" style="margin-left: 10px;">
+            <i class="fas fa-user-plus"></i> Cadastre-se
+          </a>
+        {% endif %}
+      </div>
+    </div>
   </nav>
 
   <main>
-    {% block content %}
-    {% endblock %}
+    <div class="container">
+      {% block content %}
+      <!-- Conteúdo da página será inserido aqui -->
+      {% endblock %}
+    </div>
   </main>
   
   <footer>
-    <p>&copy; 2025 Alunos UNIVESP PJI 310</p>
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="#">Sobre</a>
+        <a href="#">Contato</a>
+        <a href="#">Acessibilidade</a>
+        <a href="#">Termos de Uso</a>
+      </div>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+      <p>&copy; 2025 Alunos UNIVESP PJI 310 - Todos os direitos reservados</p>
+    </div>
   </footer>
 
   <!-- VLibras - Widget de Acessibilidade para Tradução em Libras -->
-  <div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-      <div vw-plugin-top></div>
+  <div class="vlibras-container">
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+        <div vw-plugin-top></div>
+      </div>
     </div>
   </div>
+  
   <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
   <script>
     new window.VLibras.Widget('https://vlibras.gov.br/app');
-  </script>
-
-  <!-- Leitor de Tela e Alto Contraste -->
-  <script>
+    
     function toggleContrast() {
-        document.body.classList.toggle('high-contrast');
+      document.body.classList.toggle('high-contrast');
+      const contrastButton = document.querySelector('.contrast-btn');
+      if (document.body.classList.contains('high-contrast')) {
+        contrastButton.innerHTML = '<i class="fas fa-adjust"></i> Modo Normal';
+      } else {
+        contrastButton.innerHTML = '<i class="fas fa-adjust"></i> Alto Contraste';
+      }
     }
-
-    window.addEventListener('load', function () {
-        if ('speechSynthesis' in window) {
-            const msg = new SpeechSynthesisUtterance("Bem-vindo ao Sistema Herbárium Digital. Use o botão de alto contraste se necessário.");
-            window.speechSynthesis.speak(msg);
-        }
-    });
   </script>
 </body>
 </html>
