@@ -6,23 +6,27 @@
   <meta name="description" content="Gerenciamento de fitoterápicos - Aplicação desenvolvida pelos alunos da UNIVESP PJI 310.">
   <title>{% block title %}{% endblock %}</title>
   
-  <!-- Fonte do Google -->
+  <!-- Fontes e ícones -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
   
   <style>
     :root {
-      --primary-color: #2E7D32;
-      --primary-light: #60ad5e;
-      --primary-dark: #005005;
-      --secondary-color: #81C784;
+      --primary-color: #2c8d50;
+      --primary-light: #4eba79;
+      --primary-dark: #105f3c;
+      --secondary-color: #3dc2a6;
+      --accent-color: #ffca55;
+      --danger-color: #e53e3e;
+      --warning-color: #ffca55;
       --text-light: #ffffff;
-      --text-dark: #333333;
-      --background-light: #f8f9fa;
+      --text-dark: #2d3748;
+      --text-muted: #718096;
+      --background-light: #f7fafc;
       --background-card: #ffffff;
-      --border-radius: 8px;
-      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      --transition: all 0.3s ease;
+      --border-radius: 12px;
+      --box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
     * {
@@ -32,26 +36,29 @@
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Nunito', sans-serif;
       background-color: var(--background-light);
       color: var(--text-dark);
       line-height: 1.6;
+      transition: var(--transition);
     }
 
     .container {
       width: 100%;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 15px;
+      padding: 0 20px;
     }
 
     /* Header */
     header {
-      background-color: var(--primary-color);
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
       color: var(--text-light);
       padding: 20px 0;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      position: relative;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
     .header-content {
@@ -67,13 +74,23 @@
     }
 
     .logo i {
-      font-size: 24px;
-      margin-right: 10px;
+      font-size: 28px;
+      margin-right: 12px;
+      color: var(--accent-color);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
     }
 
     .logo h1 {
+      font-family: 'Montserrat', sans-serif;
       font-size: 24px;
-      font-weight: 600;
+      font-weight: 700;
+      letter-spacing: 0.5px;
     }
 
     .accessibility-controls {
@@ -82,12 +99,12 @@
     }
 
     .contrast-btn {
-      background-color: var(--text-light);
-      color: var(--primary-color);
+      background-color: rgba(255, 255, 255, 0.2);
+      color: var(--text-light);
       border: none;
-      padding: 8px 15px;
-      border-radius: var(--border-radius);
-      font-weight: 500;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -95,7 +112,8 @@
     }
 
     .contrast-btn:hover {
-      background-color: #f0f0f0;
+      background-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
     }
 
     .contrast-btn i {
@@ -106,6 +124,7 @@
     nav {
       background-color: var(--primary-dark);
       padding: 0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
 
     .nav-container {
@@ -129,14 +148,35 @@
     nav ul li a {
       color: var(--text-light);
       text-decoration: none;
-      padding: 15px 20px;
+      padding: 18px 20px;
       display: block;
       transition: var(--transition);
-      font-weight: 500;
+      font-weight: 600;
+      position: relative;
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 3px;
+      background-color: var(--accent-color);
+      transition: var(--transition);
+      transform: translateX(-50%);
+    }
+
+    nav ul li a:hover::after {
+      width: 70%;
     }
 
     nav ul li a:hover {
-      background-color: var(--primary-light);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    nav ul li a i {
+      margin-right: 8px;
     }
 
     .user-info {
@@ -148,62 +188,125 @@
 
     .user-info i {
       margin-right: 8px;
+      font-size: 18px;
     }
 
     /* Main Content */
     main {
-      padding: 30px 0;
-      min-height: calc(100vh - 180px);
+      padding: 40px 0;
+      min-height: calc(100vh - 190px);
     }
 
     .card {
       background-color: var(--background-card);
       border-radius: var(--border-radius);
       box-shadow: var(--box-shadow);
-      padding: 20px;
-      margin-bottom: 20px;
+      padding: 25px;
+      margin-bottom: 25px;
+      transition: var(--transition);
+      border-top: 4px solid var(--primary-color);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
 
     .section-title {
       color: var(--primary-dark);
-      margin-bottom: 20px;
-      padding-bottom: 10px;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
       border-bottom: 2px solid var(--secondary-color);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 60px;
+      height: 2px;
+      background-color: var(--accent-color);
     }
 
     /* Buttons */
     .btn {
       display: inline-block;
-      padding: 10px 20px;
-      background-color: var(--primary-color);
+      padding: 12px 24px;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
       color: var(--text-light);
       text-decoration: none;
-      border-radius: var(--border-radius);
+      border-radius: 30px;
       transition: var(--transition);
       border: none;
       cursor: pointer;
-      font-weight: 500;
+      font-weight: 600;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: var(--transition);
+    }
+
+    .btn:hover::before {
+      left: 100%;
     }
 
     .btn:hover {
-      background-color: var(--primary-dark);
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+      box-shadow: 0 7px 14px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn i {
+      margin-right: 8px;
     }
 
     .btn-secondary {
-      background-color: var(--secondary-color);
-      color: var(--text-dark);
+      background: linear-gradient(135deg, var(--secondary-color) 0%, #2aa890 100%);
+      color: var(--text-light);
     }
 
     .btn-secondary:hover {
-      background-color: #5CAB7D;
+      background: linear-gradient(135deg, #2aa890 0%, var(--secondary-color) 100%);
+    }
+
+    /* Botão de exclusão (vermelho) */
+    .btn-danger {
+      background: linear-gradient(135deg, var(--danger-color) 0%, #c53030 100%);
+      color: var(--text-light);
+    }
+
+    .btn-danger:hover {
+      background: linear-gradient(135deg, #c53030 0%, var(--danger-color) 100%);
+    }
+
+    /* Botão de cancelar (amarelo) */
+    .btn-warning {
+      background: linear-gradient(135deg, var(--warning-color) 0%, #e6b800 100%);
+      color: var(--text-dark);
+    }
+
+    .btn-warning:hover {
+      background: linear-gradient(135deg, #e6b800 0%, var(--warning-color) 100%);
     }
 
     /* Footer */
     footer {
-      background-color: var(--primary-dark);
+      background: linear-gradient(135deg, var(--primary-dark) 0%, #0a4529 100%);
       color: var(--text-light);
-      padding: 25px 0;
+      padding: 35px 0;
       text-align: center;
     }
 
@@ -214,22 +317,42 @@
     }
 
     .footer-links {
-      margin-bottom: 15px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .footer-links a {
       color: var(--text-light);
-      margin: 0 10px;
+      margin: 0 15px;
       text-decoration: none;
+      transition: var(--transition);
+      position: relative;
+      padding: 5px 0;
+    }
+
+    .footer-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent-color);
       transition: var(--transition);
     }
 
+    .footer-links a:hover::after {
+      width: 100%;
+    }
+
     .footer-links a:hover {
-      color: var(--secondary-color);
+      color: var(--accent-color);
     }
 
     .social-icons {
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
 
     .social-icons a {
@@ -237,10 +360,19 @@
       margin: 0 10px;
       font-size: 18px;
       transition: var(--transition);
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
     }
 
     .social-icons a:hover {
-      color: var(--secondary-color);
+      color: var(--primary-dark);
+      background-color: var(--accent-color);
+      transform: translateY(-3px);
     }
 
     /* VLibras Widget */
@@ -251,12 +383,80 @@
       z-index: 1000;
     }
 
+    .floating-element {
+      position: absolute;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.6;
+    }
+
+    .leaf1 {
+      top: 20%;
+      left: 5%;
+      font-size: 30px;
+      color: var(--primary-light);
+      animation: float 15s ease-in-out infinite;
+    }
+
+    .leaf2 {
+      top: 40%;
+      right: 10%;
+      font-size: 25px;
+      color: var(--secondary-color);
+      animation: float 20s ease-in-out infinite reverse;
+    }
+
+    .leaf3 {
+      bottom: 30%;
+      left: 15%;
+      font-size: 20px;
+      color: var(--primary-color);
+      animation: float 18s ease-in-out infinite 2s;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(10px, 15px) rotate(5deg); }
+      50% { transform: translate(5px, 5px) rotate(-5deg); }
+      75% { transform: translate(-10px, 10px) rotate(2deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    /* Notificações */
+    .notification {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      padding: 15px 25px;
+      background-color: var(--primary-color);
+      color: var(--text-light);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      animation: slideIn 0.5s ease forwards;
+    }
+
+    .notification i {
+      margin-right: 10px;
+      font-size: 20px;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
     /* High Contrast Mode */
     .high-contrast {
       --primary-color: #000000;
       --primary-light: #333333;
       --primary-dark: #000000;
       --secondary-color: #ffff00;
+      --accent-color: #ffff00;
+      --danger-color: #ff0000;
+      --warning-color: #ffff00;
       --text-light: #ffff00;
       --text-dark: #ffff00;
       --background-light: #000000;
@@ -265,12 +465,16 @@
 
     /* Responsive Design */
     @media (max-width: 768px) {
-      .header-content, .nav-container {
+      .header-content {
         flex-direction: column;
       }
       
       .accessibility-controls {
         margin-top: 15px;
+      }
+      
+      .nav-container {
+        flex-direction: column;
       }
       
       nav ul {
@@ -283,14 +487,36 @@
         text-align: center;
       }
       
+      nav ul li a::after {
+        bottom: 5px;
+      }
+      
       .user-info {
-        margin: 10px 0;
-        justify-content: center;
+        margin: 15px 0;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .user-info .btn {
+        margin-top: 10px;
+        margin-left: 0 !important;
+      }
+      
+      .card {
+        padding: 20px;
+      }
+      
+      .floating-element {
+        display: none;
       }
     }
   </style>
 </head>
 <body>
+  <div class="floating-element leaf1"><i class="fas fa-leaf"></i></div>
+  <div class="floating-element leaf2"><i class="fas fa-seedling"></i></div>
+  <div class="floating-element leaf3"><i class="fas fa-leaf"></i></div>
+
   <header>
     <div class="header-content">
       <div class="logo">
@@ -327,7 +553,7 @@
           <a href="{% url 'login' %}" class="btn">
             <i class="fas fa-sign-in-alt"></i> Login
           </a>
-          <a href="{% url 'registro' %}" class="btn btn-secondary" style="margin-left: 10px;">
+          <a href="{% url 'registro' %}" class="btn btn-secondary" style="margin-left: 15px;">
             <i class="fas fa-user-plus"></i> Cadastre-se
           </a>
         {% endif %}
@@ -384,6 +610,55 @@
         contrastButton.innerHTML = '<i class="fas fa-adjust"></i> Alto Contraste';
       }
     }
+
+    // Função para elementos que entram na viewport
+    function initCardAnimations() {
+      const cards = document.querySelectorAll('.card');
+      
+      cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-5px)';
+          this.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0)';
+          this.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
+        });
+      });
+    }
+
+    // Função para criar notificações
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.className = 'notification';
+      
+      let icon = 'fa-info-circle';
+      if (type === 'success') icon = 'fa-check-circle';
+      if (type === 'warning') icon = 'fa-exclamation-triangle';
+      if (type === 'error') icon = 'fa-times-circle';
+      
+      notification.innerHTML = `<i class="fas ${icon}"></i> ${message}`;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        notification.style.opacity = '0';
+        setTimeout(() => {
+          notification.remove();
+        }, 500);
+      }, 3000);
+    }
+
+    // Inicializar animações quando o documento estiver carregado
+    document.addEventListener('DOMContentLoaded', function() {
+      initCardAnimations();
+      
+      // Exemplo de notificação de boas-vindas (descomente para testar)
+      // setTimeout(() => {
+      //   showNotification('Bem-vindo ao Herbárium Digital!', 'success');
+      // }, 2000);
+    });
   </script>
 </body>
 </html>
