@@ -71,7 +71,7 @@ DATABASES = {
         'NAME': 'fitoterapico',
         'USER': 'postgres',
         'PASSWORD': 'fitoterapico',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }

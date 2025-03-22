@@ -4,10 +4,15 @@ from django.shortcuts import render, redirect
 
 def registro_view(request):
     if request.method == 'POST':
+        print("Recebeu requisição POST")
         user_form = UserCreationForm(request.POST)
         if user_form.is_valid():
-            user_form.save()
+            print("Formulário é válido")
+            usuario = user_form.save()
+            print(f"Usuário {usuario.username} foi salvo")
             return redirect('login')
+        else:
+            print(f"Formulário inválido. Erros: {user_form.errors}")
     else:
         user_form = UserCreationForm()
     return render(request, 'registro.html', {'user_form': user_form})
