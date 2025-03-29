@@ -7,6 +7,9 @@ from fitoterapico.models import Fitoterapico, FitoterapicoInventario
 def fitoterapico_inventario_update():
     fitoterapico_count = Fitoterapico.objects.count()
     fitoterapico_value = Fitoterapico.objects.aggregate(total_value=Sum('preco'))['total_value']
+    # Garantir que fitoterapico_value não seja None
+    if fitoterapico_value is None:
+        fitoterapico_value = 0.0
     FitoterapicoInventario.objects.create(fitoterapico_count=fitoterapico_count, fitoterapico_value=fitoterapico_value)
 
 @receiver(pre_save, sender=Fitoterapico)

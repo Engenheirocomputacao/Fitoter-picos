@@ -2,22 +2,44 @@
 
 {% block content %}
   <style>
+    body {
+      background-image: url('https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2830&q=80');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      position: relative;
+    }
+    
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.85);
+      z-index: -1;
+    }
+    
     .fitoterapico-card {
-      background-color: #e3e1e1;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
       overflow: hidden;
       text-align: center;
       transition: all 0.3s ease;
       max-width: 500px;
       margin: 20px auto 0;
       margin-bottom: 20px;
+      border: 1px solid rgba(44, 141, 80, 0.2);
+      position: relative;
+      z-index: 1;
     }
 
     .fitoterapico-card:hover {
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-      transform: translateY(-2px);
+      box-shadow: 0 12px 20px rgba(44, 141, 80, 0.3);
+      transform: translateY(-5px);
     }
 
     .fitoterapico-card img {
@@ -29,11 +51,13 @@
     .fitoterapico-card h2 {
       font-size: 1.5rem;
       margin: 10px;
+      color: var(--primary-color);
     }
 
     .fitoterapico-card p {
       font-size: 1rem;
       margin-bottom: 10px;
+      padding: 0 15px;
     }
 
     .buttons-container {
@@ -45,28 +69,36 @@
 
     .btn {
       display: inline-block;
-      background-color: #0096c7;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
       color: #fff;
       border: none;
-      padding: 10px 20px;
+      padding: 12px 25px;
       font-size: 16px;
-      border-radius: 4px;
+      border-radius: 30px;
       cursor: pointer;
-      transition: background-color 0.3s ease-in-out;
+      transition: all 0.3s ease;
       margin: 0 10px;
+      box-shadow: 0 4px 10px rgba(44, 141, 80, 0.3);
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.5px;
     }
 
     .btn:hover {
-      background-color: #108eb8;
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+      box-shadow: 0 6px 15px rgba(44, 141, 80, 0.4);
+      transform: translateY(-2px);
     }
 
     .btn-danger {
-      background-color: #d9534f;
+      background: linear-gradient(135deg, #d9534f 0%, #c9302c 100%);
       text-decoration: none !important;
+      box-shadow: 0 4px 10px rgba(217, 83, 79, 0.3);
     }
 
     .btn-danger:hover {
-      background-color: #d2221c;
+      background: linear-gradient(135deg, #c9302c 0%, #d9534f 100%);
+      box-shadow: 0 6px 15px rgba(217, 83, 79, 0.4);
     }
 
     .error-message {
@@ -81,7 +113,7 @@
   </style>
   <div class="fitoterapico-card">
     {% if object.foto %}
-      <img src="{{ object.foto.url }}" alt="{{ object.nome }} - {{ object.tipo }}">
+      <img src="{{ object.foto.url }}" alt="{{ object.nome }} - {{ object.tipo }}" loading="lazy">
     {% else %}
         <p class="no-foto">Imagem não disponível</p>
     {% endif %}
@@ -94,7 +126,7 @@
       <p><strong>Indicação:</strong> {{ object.indicacao }}</p>
       <p><strong>Modo de utilização:</strong> {{ object.modo_uso }}</p>
       <p><strong>Efeito Colateral:</strong> {{ object.efeito_colateral }}</p>
-      <p><strong>Preço:</strong> R$ {{ object.preco }}</p>
+      <p><strong>Indicação:</strong> {{ object.indicacao }}</p>
       {% if object.bio %}
         <p><strong>Bio:</strong> {{ object.bio }}</p>
       {% endif %}

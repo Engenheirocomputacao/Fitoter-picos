@@ -10,15 +10,34 @@ class FitoterapicoListView(ListView):
     model = Fitoterapico
     template_name = 'fitoterapico.html'
     context_object_name = 'fitoterapico'
+    paginate_by = 9
 
     def get_queryset(self):
         fitoterapico = super().get_queryset().order_by('nome')
-        search = self.request.GET.get('search')
+        search = self.request.GET.get('search', '')
+        tipo = self.request.GET.get('tipo', '')
+        indicacao = self.request.GET.get('indicacao', '')
 
         if search:
             fitoterapico = fitoterapico.filter(nome__icontains=search)
+        
+        if tipo:
+            fitoterapico = fitoterapico.filter(tipo__id=tipo)
+            
+        if indicacao:
+            fitoterapico = fitoterapico.filter(indicacao__icontains=indicacao)
 
         return fitoterapico
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        from fitoterapico.models import Tipo
+        
+        context['search'] = self.request.GET.get('search', '')
+        context['tipo_selecionado'] = self.request.GET.get('tipo', '')
+        context['indicacao'] = self.request.GET.get('indicacao', '')
+        context['tipos'] = Tipo.objects.all()
+        return context
 
 
 
